@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Camping San Jose</title>
+    <link href="reset.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    
+  </head>
+  <body>
+    <header>
+      <div class="caja">
+        <nav>
+          <h1><img></h1> <!--imagen logo-->
+          <ol>
+            <li><a href="#ubicacion">Ubicación</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#precios">Precios</a></li>
+            <li><a href="#contactanos">Contáctanos</a></li>
+          </ol>
+        </nav>
+      </div> 
+    </header>
+    <main>
+      <div>
+        <br>
+        <h1>Camping San José</h1>
+        <h2 id="ubicacion">¿Dónde estamos?</h2>
+        <p>En el interior de los reyunos a la orrila del lago, San Rafael, Mendoza, Argentina</p>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d105067.67878957395!2d-68.57952059801082!3d-34.62021636320762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e0!4m3!3m2!1d-34.6185944!2d-68.3697002!4m5!1s0x96797748f7468c01%3A0xac0f504f0f50e65a!2sCamping%20energia%20atomica%2C%2025%20de%20Mayo%2C%20Mendoza!3m2!1d-34.6188329!2d-68.6533013!5e0!3m2!1ses!2sar!4v1656291924757!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        
+        <h2 id="servicios">¿Que servicios o ofrecemos?</h2>
+        <h3>Contamos con servicio de:</h3>
+        <ul>
+          <li>zona de camping</li>
+          <li>Churrazqueras</li>
+          <li>baño con duchas y agua caliente</li>
+          <li>Bajada al lago</li>
+          <li>Despensa con bebidas frescas, comestibles, leña y más</li>
+          <li>Alquiler de balsas</li>
+          <li>Quincho techado</li>
+        </ul>
+        <h2 id="precios">Precios</h2>
+        <p>Por perosona un día: $250 (menores de 13 años no pagan)</p>
+        <p>Por carpa: $250</p>
+        <p>Bajada de enbarcaciones: $0 Gratis!!</p>
+        <p>alquier de balsas: consultar por <a href="#whatsApp">WhatsApp</a></p>
+      </div>
+      <div id="centro">
+        <br>
+        <h2>¡Juega tiro al blanco!</h2>
+        <canvas width="600" height="400">
+
+        </canvas>
+        <script>
+            var pantalla = document.querySelector("canvas");
+            var pincel = pantalla.getContext("2d");
+            pincel.fillStyle ="lightgrey";
+            pincel.fillRect(0,0,600,400);
+        
+            function disenharCirculo(x,y,radio,color){
+        
+                pincel.fillStyle = color;
+                pincel.beginPath();
+                pincel.arc(x , y, radio ,0 , 2*Math.PI);
+                pincel.fill();
+        
+            }
+        
+            var xmaximo;
+            var yminimo;
+            var radio = 10;
+        
+            function limpiarPantalla(){
+                pincel.clearRect(0,0,600,400)
+            }
+            
+        
+            function actualizarPantalla() {
+                limpiarPantalla();
+                xmaximo = sortearPosicion(600)
+                yminimo = sortearPosicion(400)
+                disenharObjetivo(xmaximo, yminimo)
+                
+            }
+        
+            function disenharObjetivo(x,y){
+                disenharCirculo(x,y,radio + 20, "red")
+                disenharCirculo(x,y,radio + 10,"white")
+                disenharCirculo(x,y,radio,"red")
+            }
+        
+            function sortearPosicion(maximo){
+                return Math.floor(Math.random()*maximo)
+            }
+        
+            setInterval(actualizarPantalla,1000)
+        
+            function disparar(evento){
+                var x = evento.pageX - pantalla.offsetLeft
+                var y = evento.pageY - pantalla.offsetTop
+                if(
+                    (x < xmaximo + radio) &&
+                    (x > xmaximo - radio) &&
+                    (y < yminimo + radio) &&
+                    (y > yminimo - radio)) {
+                        alert("tiro certero")
+                    }
+                
+                
+            }
+        
+            pantalla.onclick = disparar;
+        </script>
+      </div>
+    </main>
+  </body>
+  <footer>
+    <h2 id="contactanos">Contáctanos</h2>
+    <a href="https://www.instagram.com/campingsanjosesr/?hl=es" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="https://m.facebook.com/campingsanjosesanrafael/" target="_blank" rel="noopener noreferrer">Facebook</a>
+    <p id="whatsApp">WhatsApp: 2604577731</p>
+  </footer>
+</html>
